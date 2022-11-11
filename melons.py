@@ -7,9 +7,16 @@ class AbstractMelonOrder:
         
     def get_total(self):
         """Calculate price, including tax."""
-
+        order_qty = int(self.qty)
         base_price = 5
-        total = (1 + self.tax) * self.qty * base_price
+        if self.species == "Christmas melon":
+            base_price = base_price * 5
+        else:
+             base_price = 5
+        if self.order_type == "international" and order_qty < 10:
+            total = ((1 + self.tax) * self.qty * base_price) + 3.00
+        else:
+            total = (1 + self.tax) * self.qty * base_price
 
         return total
     def mark_shipped(self):
